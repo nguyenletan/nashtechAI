@@ -1,7 +1,11 @@
 <template>
   <div class="home">
-    <vue-dropzone v-show="!uploaded" ref="myVueDropzone" id="dropzone" :options="dropzoneOptions"
-                  @vdropzone-success="onUpload"></vue-dropzone>
+    <vue-dropzone v-show="!uploaded"
+                  ref="myVueDropzone"
+                  id="dropzone"
+                  :options="dropzoneOptions"
+                  @vdropzone-success="onUpload">
+    </vue-dropzone>
 
     <div class="imgUpLoadContainer" v-show="uploaded">
       <img class="imgUpLoad" :src="imgUrl" alt="upload image" title="upload image"/>
@@ -9,13 +13,13 @@
     </div>
     <ul class="predict-result">
       Predict:
-      <li v-for="item in predict" class="predict-item">
+      <li v-for="item in predict" :key="item" class="predict-item">
         {{item}}
       </li>
     </ul>
     <ul class="predict-with-bem-result">
       Predict with Bem:
-      <li v-for="item in predictWithBeamSearch" class="predict-with-bem-item">
+      <li v-for="item in predictWithBeamSearch" :key="item" class="predict-with-bem-item">
         {{item}}
       </li>
     </ul>
@@ -135,6 +139,7 @@ export default {
     },
     reUpload: function() {
       this.uploaded = false;
+      this.$refs.myVueDropzone.removeAllFiles();
     }
   }
 };
